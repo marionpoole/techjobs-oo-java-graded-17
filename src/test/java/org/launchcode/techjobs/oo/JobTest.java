@@ -3,6 +3,8 @@ package org.launchcode.techjobs.oo;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Iterator;
+
 public class JobTest {
     //TODO: Create your unit tests here
 
@@ -33,5 +35,26 @@ public class JobTest {
         Job job = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
         Job aJob = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
         Assert.assertFalse(job.equals(aJob));
+    }
+
+    @Test
+    public void testToStringStartsAndEndsWithNewLine() {
+        Job job = new Job("", new Employer(""), new Location(""), new PositionType(""), new CoreCompetency(""));
+        String aJob = job.toString();
+        Assert.assertEquals(System.lineSeparator(), aJob.substring(0,2));
+        Assert.assertEquals(System.lineSeparator(), aJob.substring(aJob.length() -2));
+    }
+
+    @Test
+    public void testToStringContainsCorrectLabelsAndData() {
+        Job job = new Job("Product tester", new Employer("ACME"), new Location("Desert"), new PositionType("Quality control"), new CoreCompetency("Persistence"));
+        Assert.assertEquals(System.lineSeparator()+"ID: " + job.getId() + System.lineSeparator() + "Name: Product tester" +System.lineSeparator() + "Employer: ACME" + System.lineSeparator() + "Location: Desert" + System.lineSeparator() + "Position Type: Quality control" + System.lineSeparator() + "Core Competency: Persistence" + System.lineSeparator(), job.toString());
+    }
+
+    @Test
+    public void testToStringHandlesEmptyField() {
+        Job job = new Job("", new Employer(""), new Location(""), new PositionType(""), new CoreCompetency(""));
+        Assert.assertEquals(System.lineSeparator()+"ID: " + job.getId() + System.lineSeparator() + "Name: Data not available" +System.lineSeparator() + "Employer: Data not available" + System.lineSeparator() + "Location: Data not available" + System.lineSeparator() + "Position Type: Data not available" + System.lineSeparator() + "Core Competency: Data not available" + System.lineSeparator(), job.toString());
+
     }
 }
